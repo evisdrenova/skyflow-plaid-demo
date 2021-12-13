@@ -232,62 +232,62 @@ app.get('/api/auth', function (request, response, next) {
 
 
 
-// //link to the credentials.json file for the service account
-// var filePath = "./credentials.json"
+//link to the credentials.json file for the service account
+var filePath = "./credentials.json"
 
-// const skyflowClient = skyflow.Skyflow.init({
-//   vaultID: "j04c28baee8c4786a2b159521b8e3a14",
-//   vaultURL: "https://ebfc9bee4242.vault.skyflowapis.com/",
-//   getBearerToken: () => {
-//     return new Promise((resolve, reject) => {
-//       skyflow
-//       .GenerateToken(filePath)
-//       .then((res) => {
-//        //resolve(JSON.parse(JSON.stringify(res)).accessToken);
-//        console.log('skyflow bearer token',res)
-//         resolve(res.accessToken);
-//       })
-//       .catch((err) => {
-//         reject(err);
-//       });
-//     });
-//   }
-// });
+const skyflowClient = skyflow.Skyflow.init({
+  vaultID: "j04c28baee8c4786a2b159521b8e3a14",
+  vaultURL: "https://ebfc9bee4242.vault.skyflowapis.com/",
+  getBearerToken: () => {
+    return new Promise((resolve, reject) => {
+      skyflow
+      .GenerateToken(filePath)
+      .then((res) => {
+       //resolve(JSON.parse(JSON.stringify(res)).accessToken);
+       console.log('skyflow bearer token',res)
+        resolve(res.accessToken);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+    });
+  }
+});
 
 
-// var configObj = {
-//   account_name: account_name,
-//   balance: balance,
-//   ach_account: ach_account,
-//   ach_routing: ach_routing,
-//   iso_currency_code: iso_currency_code,
-// }
+var configObj = {
+  account_name: account_name,
+  balance: balance,
+  ach_account: ach_account,
+  ach_routing: ach_routing,
+  iso_currency_code: iso_currency_code,
+}
 
-// console.log(configObj)
+console.log(configObj)
 
-// const response = skyflowClient.insert({
-//   records: [
-//     {
-//       fields: configObj,
-//       table: "auth",
-//     },
-//   ],
-// },{tokens:true});
-// response
-//   .then(
-//     (res) => {
-//       console.log("insert result:");
-//       console.log(JSON.stringify(res));
-//     },
-//     (err) => {
-//       console.log("insert error:");
-//       console.log(JSON.stringify(err));
-//     }
-//   )
-//   .catch((err) => {
-//     console.log("insert exception:");
-//     console.log(JSON.stringify(err));
-//   });
+const response = skyflowClient.insert({
+  records: [
+    {
+      fields: configObj,
+      table: "auth",
+    },
+  ],
+},{tokens:true});
+response
+  .then(
+    (res) => {
+      console.log("insert result:");
+      console.log(JSON.stringify(res));
+    },
+    (err) => {
+      console.log("insert error:");
+      console.log(JSON.stringify(err));
+    }
+  )
+   .catch((err) => {
+     console.log("insert exception:");
+     console.log(JSON.stringify(err));
+  });
 
 
 
